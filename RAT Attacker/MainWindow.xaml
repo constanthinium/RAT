@@ -58,5 +58,7 @@
                          IsEnabled="True" />
             </StackPanel>
         </Border>
+        <Image Name="image"
+               Grid.Row="2" />
     </Grid>
 </Window>
