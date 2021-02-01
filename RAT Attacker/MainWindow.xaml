@@ -50,9 +50,20 @@
         <Border Grid.Row="1"
                 Padding="4"
                 Background="{Binding ElementName=menu, Path=Background}">
-            <StackPanel Orientation="Horizontal">
-
-            </StackPanel>
+            <GroupBox HorizontalAlignment="Left">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/shell32_265.ico"
+                               Height="16" />
+                        <TextBlock Text="Message" />
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="100" />
+                    <Button Content="Send">
+                    </Button>
+                </StackPanel>
+            </GroupBox>
         </Border>
         <Image Name="image"
                Grid.Row="2" />

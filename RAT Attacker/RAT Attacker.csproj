@@ -94,5 +94,8 @@
   <ItemGroup>
     <Resource Include="Icons\shell32_28.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\shell32_265.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
