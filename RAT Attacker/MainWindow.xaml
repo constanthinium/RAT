@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Menu Name="menu">
             <MenuItem Header="Close Active Window"
@@ -50,15 +51,17 @@
                 Padding="4"
                 Background="{Binding ElementName=menu, Path=Background}">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="IP Address: " />
-                <TextBox Name="addressTextBox"
-                         Text="127.0.0.1"
-                         Width="110"
-                         FontFamily="Consolas"
-                         IsEnabled="True" />
+
             </StackPanel>
         </Border>
         <Image Name="image"
                Grid.Row="2" />
+        <StatusBar Grid.Row="3">
+            <TextBlock Text="IP Address: " />
+            <TextBox Name="addressTextBox"
+                     Text="127.0.0.1"
+                     Width="110"
+                     FontFamily="Consolas" />
+        </StatusBar>
     </Grid>
 </Window>
