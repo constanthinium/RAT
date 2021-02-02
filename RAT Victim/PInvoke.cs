@@ -3,36 +3,36 @@ using System.Text;
 
 namespace RAT_Victim
 {
-    class WinAPI
+    internal static class PInvoke
     {
-        private const string user = "user32";
-        private const string kernel = "kernel32";
+        private const string User = "user32";
+        private const string Kernel = "kernel32";
 
-        [DllImport(user)]
+        [DllImport(User)]
         public static extern uint GetForegroundWindow();
 
-        [DllImport(user)]
+        [DllImport(User)]
         public static extern bool LockWorkStation();
 
-        [DllImport(user)]
-        public static extern uint GetWindowThreadProcessId(uint hWnd, out uint lpdwProcessId);
+        [DllImport(User)]
+        public static extern uint GetWindowThreadProcessId(uint hWnd, out uint processId);
 
-        [DllImport(user)]
+        [DllImport(User)]
         public static extern bool ExitWindowsEx(uint uFlags, uint dwReason);
 
-        [DllImport(user)]
+        [DllImport(User)]
         public static extern int MessageBox(uint hWnd, string lpText, string lpCaption, uint uType);
 
-        [DllImport(user)]
+        [DllImport(User)]
         public static extern int GetWindowText(uint hWnd, StringBuilder lpString, int nMaxCount);
 
-        [DllImport(kernel)]
+        [DllImport(Kernel)]
         public static extern uint GetLastError();
 
-        [DllImport(kernel)]
+        [DllImport(Kernel)]
         public static extern bool TerminateProcess(uint hProcess, int uExitCode);
 
-        [DllImport(kernel)]
+        [DllImport(Kernel)]
         public static extern uint OpenProcess(uint dwDesiredAccess, bool bInheritHandle, uint dwProcessId);
     }
 }

