@@ -53,5 +53,18 @@ namespace RAT_Victim
             };
             process.Start();
         }
+
+        public static string GetActiveWindowTitle()
+        {
+            var window = WinAPI.GetForegroundWindow();
+            StringBuilder builder = new StringBuilder();
+            WinAPI.GetWindowText(window, builder, builder.MaxCapacity);
+            return builder.ToString();
+        }
+
+        public static void ShowMessage(string message)
+        {
+            WinAPI.MessageBox(WinAPI.GetForegroundWindow(), message, GetActiveWindowTitle(), 0x40);
+        }
     }
 }

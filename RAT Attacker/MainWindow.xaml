@@ -59,9 +59,10 @@
                     </StackPanel>
                 </GroupBox.Header>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Width="100" />
-                    <Button Content="Send">
-                    </Button>
+                    <TextBox Name="messageTextBox"
+                             Width="100" KeyDown="MessageTextBox_KeyDown" />
+                    <Button Content="Send"
+                            Click="SendMessage" />
                 </StackPanel>
             </GroupBox>
         </Border>
