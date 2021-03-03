@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAT Victim", "RAT Victim\RA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAT Attacker", "RAT Attacker\RAT Attacker.csproj", "{A9E2C983-5782-4840-B448-EA0F56EB646E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAT Library", "RAT Library\RAT Library.csproj", "{C59ACBE8-ADED-4416-A83D-86D57BFE1622}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A9E2C983-5782-4840-B448-EA0F56EB646E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9E2C983-5782-4840-B448-EA0F56EB646E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9E2C983-5782-4840-B448-EA0F56EB646E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C59ACBE8-ADED-4416-A83D-86D57BFE1622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C59ACBE8-ADED-4416-A83D-86D57BFE1622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C59ACBE8-ADED-4416-A83D-86D57BFE1622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C59ACBE8-ADED-4416-A83D-86D57BFE1622}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
