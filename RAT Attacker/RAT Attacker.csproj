@@ -85,6 +85,8 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -99,6 +101,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\shell32_246.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RAT Library\RAT Library.csproj">
+      <Project>{c59acbe8-aded-4416-a83d-86d57bfe1622}</Project>
+      <Name>RAT Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

