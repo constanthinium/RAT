@@ -94,16 +94,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\shell32_325.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\shell32_28.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\shell32_265.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\shell32_246.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RAT Library\RAT Library.csproj">
@@ -113,6 +104,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="shell32_19.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\shell32_45.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\wmploc_601.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\explorer_254.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
