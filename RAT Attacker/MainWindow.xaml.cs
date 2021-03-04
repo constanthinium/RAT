@@ -1,6 +1,5 @@
 ﻿using RAT_Library;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -22,20 +21,29 @@ namespace RAT_Attacker
 
         private void SendCommand(RatCommand command, IEnumerable<byte> data = null)
         {
+            IsEnabled = false;
             _client = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            try
+            _client.BeginConnect(new IPEndPoint(IPAddress.Parse(AddressTextBox.Text), Common.Port), ar =>
             {
-                _client.Connect(new IPEndPoint(IPAddress.Parse(AddressTextBox.Text), Common.Port));
-                var commandId = new[] { (byte)command };
-                _client.Send(data == null ? commandId : commandId.Concat(data).ToArray());
-            }
-            catch (SocketException ex)
-            {
-                if (ex.SocketErrorCode == SocketError.ConnectionRefused)
+                try
                 {
-                    MessageBox.Show("Cannot connect", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _client.EndConnect(ar);
+                    var commandId = new[] { (byte)command };
+                    _client.Send(data == null ? commandId : commandId.Concat(data).ToArray());
                 }
-            }
+                catch (SocketException ex)
+                {
+                    if (ex.SocketErrorCode == SocketError.ConnectionRefused)
+                    {
+                        Dispatcher.Invoke(() =>
+                            MessageBox.Show("Cannot connect", "Error", MessageBoxButton.OK, MessageBoxImage.Error));
+                    }
+                }
+                finally
+                {
+                    Dispatcher.Invoke(() => IsEnabled = true);
+                }
+            }, null);
         }
 
         private void CloseActiveWindow(object sender, RoutedEventArgs e)
