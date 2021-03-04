@@ -88,7 +88,11 @@ namespace RAT_Attacker
 
         private void PlaySound(object sender, RoutedEventArgs e)
         {
-            SendCommand(RatCommand.PlaySound, File.ReadAllBytes(AudioFileTextBox.Text));
+            var filePath = AudioFileTextBox.Text;
+            if (File.Exists(filePath) && Path.GetExtension(filePath) == ".wav")
+                SendCommand(RatCommand.PlaySound, File.ReadAllBytes(filePath));
+            else
+                MessageBox.Show("File must have wav extension", "Input error", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void Mute(object sender, RoutedEventArgs e)
