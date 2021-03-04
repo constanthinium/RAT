@@ -60,6 +60,15 @@
                     <Image Source="/Icons/shell32_28.ico" />
                 </MenuItem.Icon>
             </MenuItem>
+            <MenuItem Click="Mute">
+                <MenuItem.Header>
+                    <TextBlock Text="Mute"
+                               VerticalAlignment="Center" />
+                </MenuItem.Header>
+                <MenuItem.Icon>
+                    <Image Source="/Icons/SndVol_111.ico" />
+                </MenuItem.Icon>
+            </MenuItem>
         </Menu>
         <Border Grid.Row="1"
                 Padding="4"

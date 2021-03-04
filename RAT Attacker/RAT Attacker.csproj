@@ -114,5 +114,8 @@
   <ItemGroup>
     <Resource Include="Icons\explorer_254.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\SndVol_111.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

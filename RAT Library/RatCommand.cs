@@ -8,6 +8,7 @@
         Lock,
         Shutdown,
         SendMessage,
-        PlaySound
+        PlaySound,
+        Mute
     }
 }

