@@ -117,5 +117,8 @@
   <ItemGroup>
     <Resource Include="Icons\SndVol_111.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\WlanMM_3231.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

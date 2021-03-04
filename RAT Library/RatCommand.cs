@@ -9,6 +9,7 @@
         Shutdown,
         SendMessage,
         PlaySound,
-        Mute
+        Mute,
+        DisableWiFi
     }
 }

