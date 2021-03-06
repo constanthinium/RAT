@@ -82,7 +82,7 @@
         <Border Grid.Row="1"
                 Padding="4"
                 Background="{StaticResource {x:Static SystemColors.ControlBrushKey}}">
-            <StackPanel Orientation="Horizontal">
+            <WrapPanel>
                 <GroupBox HorizontalAlignment="Left">
                     <GroupBox.Header>
                         <StackPanel Orientation="Horizontal">
@@ -114,7 +114,7 @@
                         <Button Content="Play" Click="PlaySound" />
                     </StackPanel>
                 </GroupBox>
-            </StackPanel>
+            </WrapPanel>
         </Border>
         <Image Name="ScreenshotImage"
                Grid.Row="2" />
