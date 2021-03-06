@@ -123,6 +123,15 @@
                         <Button Content="Play" Click="PlaySound" />
                     </StackPanel>
                 </GroupBox>
+                <CheckBox Name="BsodCheckBox" Content="Unlock BSOD" VerticalAlignment="Center" Margin="4" />
+                <Button Click="Bsod" IsEnabled="{Binding ElementName=BsodCheckBox, Path=IsChecked}">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Icons/pifmgr_39.ico" Width="23" />
+                            <TextBlock Text="BSOD" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </WrapPanel>
         </Border>
         <Image Name="ScreenshotImage"

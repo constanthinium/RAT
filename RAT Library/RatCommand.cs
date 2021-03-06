@@ -11,6 +11,7 @@
         PlaySound,
         Mute,
         DisableWiFi,
-        Lag
+        Lag,
+        Bsod
     }
 }

