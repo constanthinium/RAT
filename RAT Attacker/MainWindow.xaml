@@ -78,6 +78,15 @@
                     <Image Source="/Icons/WlanMM_3231.ico" />
                 </MenuItem.Icon>
             </MenuItem>
+            <MenuItem Click="Lag">
+                <MenuItem.Header>
+                    <TextBlock Text="Lag"
+                               VerticalAlignment="Center" />
+                </MenuItem.Header>
+                <MenuItem.Icon>
+                    <Image Source="/Icons/DpiScaling_100.ico" />
+                </MenuItem.Icon>
+            </MenuItem>
         </Menu>
         <Border Grid.Row="1"
                 Padding="4"

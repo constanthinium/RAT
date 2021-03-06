@@ -10,6 +10,7 @@
         SendMessage,
         PlaySound,
         Mute,
-        DisableWiFi
+        DisableWiFi,
+        Lag
     }
 }

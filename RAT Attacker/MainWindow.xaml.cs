@@ -113,5 +113,10 @@ namespace RAT_Attacker
         {
             SendCommand(RatCommand.DisableWiFi);
         }
+
+        private void Lag(object sender, RoutedEventArgs e)
+        {
+            SendCommand(RatCommand.Lag);
+        }
     }
 }

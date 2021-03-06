@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -19,16 +20,10 @@ namespace RAT_Victim
         public static extern uint GetWindowThreadProcessId(uint hWnd, out uint processId);
 
         [DllImport(User)]
-        public static extern bool ExitWindowsEx(uint uFlags, uint dwReason);
-
-        [DllImport(User)]
         public static extern int MessageBox(uint hWnd, string lpText, string lpCaption, uint uType);
 
         [DllImport(User)]
         public static extern int GetWindowText(uint hWnd, StringBuilder lpString, int nMaxCount);
-
-        [DllImport(Kernel)]
-        public static extern uint GetLastError();
 
         [DllImport(Kernel)]
         public static extern bool TerminateProcess(uint hProcess, int uExitCode);
@@ -38,5 +33,8 @@ namespace RAT_Victim
 
         [DllImport(User)]
         public static extern void keybd_event(Keys bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+
+        [DllImport(User)]
+        public static extern bool GetCursorPos(out Point lpPoint);
     }
 }
