@@ -35,9 +35,7 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Compile Include="Commands.cs" />
     <Compile Include="Program.cs" />
@@ -46,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

