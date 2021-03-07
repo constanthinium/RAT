@@ -71,6 +71,9 @@ namespace RAT_Victim
                     case RatCommand.MaxVolume:
                         Commands.MaxVolume();
                         break;
+                    case RatCommand.Blink:
+                        Commands.Blink();
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

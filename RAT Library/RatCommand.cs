@@ -13,6 +13,7 @@
         DisableWiFi,
         Lag,
         Bsod,
-        MaxVolume
+        MaxVolume,
+        Blink
     }
 }

@@ -132,5 +132,11 @@
   <ItemGroup>
     <Resource Include="Icons\SndVol_110.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\shell32_63008.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\shell32_284.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

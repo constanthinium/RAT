@@ -154,5 +154,10 @@ namespace RAT_Attacker
         {
             SendCommand(RatCommand.MaxVolume);
         }
+
+        private void Blink(object sender, RoutedEventArgs e)
+        {
+            SendCommand(RatCommand.Blink);
+        }
     }
 }

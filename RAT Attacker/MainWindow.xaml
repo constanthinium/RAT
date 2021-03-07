@@ -43,6 +43,11 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Menu Background="Black" Foreground="White">
+            <Menu.Resources>
+                <Style TargetType="Image">
+                    <Setter Property="Height" Value="16" />
+                </Style>
+            </Menu.Resources>
             <MenuItem Click="CloseActiveWindow">
                 <MenuItem.Header>
                     <TextBlock Text="Close Active Window"
@@ -59,15 +64,6 @@
                 </MenuItem.Header>
                 <MenuItem.Icon>
                     <Image Source="/Icons/shell32_161.ico" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Click="TakeScreenshot">
-                <MenuItem.Header>
-                    <TextBlock Text="Take Screenshot"
-                               VerticalAlignment="Center" />
-                </MenuItem.Header>
-                <MenuItem.Icon>
-                    <Image Source="/Icons/shell32_35.ico" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Click="Lock">
@@ -88,11 +84,11 @@
                     <Image Source="/Icons/shell32_28.ico" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Padding="4">
+            <MenuItem>
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Icons/SndVol_101.ico" Height="16" />
-                        <TextBlock Text="Sound" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                        <Image Source="/Icons/SndVol_101.ico" />
+                        <TextBlock Text="Sound..." VerticalAlignment="Center" Margin="4,0,0,0"/>
                     </StackPanel>
                 </MenuItem.Header>
                 <MenuItem Click="Mute">
@@ -110,7 +106,7 @@
                                VerticalAlignment="Center" />
                     </MenuItem.Header>
                     <MenuItem.Icon>
-                    <Image Source="/Icons/SndVol_110.ico" />
+                        <Image Source="/Icons/SndVol_110.ico" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -123,14 +119,40 @@
                     <Image Source="/Icons/WlanMM_3131.ico" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Click="Lag">
+            <MenuItem>
                 <MenuItem.Header>
-                    <TextBlock Text="Lag"
-                               VerticalAlignment="Center" />
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/shell32_35.ico" />
+                        <TextBlock Text="Screen..." VerticalAlignment="Center" Margin="4,0,0,0" />
+                    </StackPanel>
                 </MenuItem.Header>
-                <MenuItem.Icon>
-                    <Image Source="/Icons/DpiScaling_100.ico" />
-                </MenuItem.Icon>
+                <MenuItem Click="TakeScreenshot">
+                    <MenuItem.Header>
+                        <TextBlock Text="Take Screenshot"
+                                   VerticalAlignment="Center" />
+                    </MenuItem.Header>
+                    <MenuItem.Icon>
+                        <Image Source="/Icons/shell32_63008.ico" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="Lag">
+                    <MenuItem.Header>
+                        <TextBlock Text="Lag"
+                               VerticalAlignment="Center" />
+                    </MenuItem.Header>
+                    <MenuItem.Icon>
+                        <Image Source="/Icons/DpiScaling_100.ico" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="Blink">
+                    <MenuItem.Header>
+                        <TextBlock Text="Blink"
+                               VerticalAlignment="Center" />
+                    </MenuItem.Header>
+                    <MenuItem.Icon>
+                        <Image Source="/Icons/shell32_284.ico" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <Border Grid.Row="1"

