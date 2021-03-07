@@ -6,7 +6,32 @@
         mc:Ignorable="d"
         Title="RAT Attacker"
         Width="800"
-        Height="450">
+        Height="450"
+        Background="Black">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="DarkGray">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Gray" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -14,7 +39,7 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Menu>
+        <Menu Background="Black" Foreground="White">
             <MenuItem Click="CloseActiveWindow">
                 <MenuItem.Header>
                     <TextBlock Text="Close Active Window"
@@ -75,7 +100,7 @@
                                VerticalAlignment="Center" />
                 </MenuItem.Header>
                 <MenuItem.Icon>
-                    <Image Source="/Icons/WlanMM_3231.ico" />
+                    <Image Source="/Icons/WlanMM_3131.ico" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Click="Lag">
@@ -89,9 +114,16 @@
             </MenuItem>
         </Menu>
         <Border Grid.Row="1"
-                Padding="4"
-                Background="{StaticResource {x:Static SystemColors.ControlBrushKey}}">
+                Padding="4">
             <WrapPanel>
+                <WrapPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                    <Style TargetType="GroupBox">
+                        <Setter Property="Margin" Value="0,0,4,0" />
+                    </Style>
+                </WrapPanel.Resources>
                 <GroupBox HorizontalAlignment="Left">
                     <GroupBox.Header>
                         <StackPanel Orientation="Horizontal">
@@ -118,25 +150,30 @@
                     </GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBox Name="AudioFileTextBox"
-                                 Width="200"
+                                 Width="300"
                                  KeyDown="MessageTextBox_KeyDown" />
                         <Button Content="Play" Click="PlaySound" />
                     </StackPanel>
                 </GroupBox>
-                <CheckBox Name="BsodCheckBox" Content="Unlock BSOD" VerticalAlignment="Center" Margin="4" />
-                <Button Click="Bsod" IsEnabled="{Binding ElementName=BsodCheckBox, Path=IsChecked}">
-                    <Button.Content>
-                        <StackPanel>
-                            <Image Source="/Icons/pifmgr_39.ico" Width="23" />
-                            <TextBlock Text="BSOD" />
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
+                <Border BorderThickness="1" BorderBrush="White">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Name="BsodCheckBox" Content="BSOD" Foreground="White"
+                                  VerticalAlignment="Center" Margin="4,0" />
+                        <Button Click="Bsod" IsEnabled="{Binding ElementName=BsodCheckBox, Path=IsChecked}" Margin="1">
+                            <Button.Content>
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/Icons/pifmgr_39.ico" Width="19" />
+                                    <TextBlock Text="BSOD" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Border>
             </WrapPanel>
         </Border>
         <Image Name="ScreenshotImage"
                Grid.Row="2" />
-        <StatusBar Grid.Row="3">
+        <StatusBar Grid.Row="3" Background="Black" Foreground="White">
             <TextBlock Text="IP Address: " />
             <TextBox Name="AddressTextBox"
                      Text="127.0.0.1"

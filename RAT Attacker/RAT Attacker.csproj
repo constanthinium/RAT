@@ -118,13 +118,13 @@
     <Resource Include="Icons\SndVol_111.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\WlanMM_3231.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\DpiScaling_100.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\pifmgr_39.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\WlanMM_3131.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
