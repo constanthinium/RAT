@@ -12,6 +12,9 @@ namespace RAT_Victim
         private const string Kernel = "kernel32";
         private const string Nt = "ntdll";
 
+        [DllImport(Kernel)]
+        public static extern int GetLastError();
+
         [DllImport(User)]
         public static extern uint GetForegroundWindow();
 
@@ -34,7 +37,7 @@ namespace RAT_Victim
         public static extern uint OpenProcess(uint dwDesiredAccess, bool bInheritHandle, uint dwProcessId);
 
         [DllImport(User)]
-        public static extern void keybd_event(Keys bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+        public static extern void keybd_event(ConsoleKey bVk, byte bScan, uint dwFlags, int dwExtraInfo);
 
         [DllImport(User)]
         public static extern bool GetCursorPos(out Point lpPoint);

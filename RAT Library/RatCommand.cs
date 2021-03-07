@@ -12,6 +12,7 @@
         Mute,
         DisableWiFi,
         Lag,
-        Bsod
+        Bsod,
+        MaxVolume
     }
 }

